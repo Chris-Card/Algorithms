@@ -2,6 +2,9 @@ package com.cybergrants.ts.main;
 
 import com.cybergrants.ts.algorithms.graph.*;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class Main {
     
     public static void main(String args[]){
@@ -121,5 +124,53 @@ public class Main {
             System.out.println("Graph contains cycle");
         else
             System.out.println("Graph doesn't contains cycle");
+        
+        
+        //Order Strings and Add Numbers
+        String s1 = "AC2BEW3";
+        String s2 = "ACCBA10D2EW30";
+        
+        String int_buff = "";
+        Integer total = 0;
+        
+        String ar1[] = s1.split("(?!^)");
+        String ar2[] = s2.split("(?!^)");
+        
+        LinkedList<String> str1ll = new LinkedList<String>();
+        LinkedList<String> str2ll = new LinkedList<String>();
+        
+        for(int i=0; i<ar1.length; i++){
+            str1ll.add(ar1[i]);
+        }
+        
+        Iterator<String> i = str1ll.listIterator();
+        while(i.hasNext()){
+            String s = i.next();
+            try{
+                int test = Integer.parseInt(s);
+                int_buff += s;
+                i.remove();
+            } catch (NumberFormatException e) {
+                if(int_buff.length() > 0){
+                    total += Integer.parseInt(int_buff);
+                    int_buff = "";
+                }
+            }
+        }
+        
+        if(int_buff.length() > 0){
+            total += Integer.parseInt(int_buff);
+            int_buff = "";
+        }
+        
+        for(String s:str1ll){
+            System.out.println(s);
+        }
+        
+        if("C".compareTo("A") < 0){
+            System.out.println("A is less than C");
+        }
+        System.out.println("Total:"+total);
+        
     }
 }
